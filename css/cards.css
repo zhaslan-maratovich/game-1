@@ -1,0 +1,187 @@
+#character-card {
+  position: fixed;
+  z-index: 200;
+  width: 240px;
+  background: var(--bg-card);
+  border: 1px solid var(--red-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 12px rgba(255,42,42,0.1);
+  animation: slide-up 0.25s ease-out;
+}
+
+#character-card.fade-out {
+  animation: fade-out 0.3s ease-out forwards;
+}
+
+#character-card.hidden {
+  display: none !important;
+}
+
+.card-close-btn {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 5;
+  padding: 2px 4px;
+  transition: color var(--transition);
+}
+
+.card-close-btn:hover {
+  color: var(--red-glow);
+}
+
+/* Card portrait */
+.card-portrait {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(255,42,42,0.05), transparent);
+  border-bottom: 1px solid var(--red-border);
+  padding: 6px;
+  position: relative;
+}
+
+.card-portrait svg {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+/* Card name row */
+.card-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px 4px;
+}
+
+.card-name {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.card-level {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--text-gold);
+  opacity: 0.85;
+}
+
+.card-hp {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--text-muted);
+  padding: 0 10px 4px;
+}
+
+.card-hp-value {
+  color: var(--green-heal);
+}
+
+.card-hp-value.hp-medium {
+  color: #d0a000;
+}
+
+.card-hp-value.hp-low {
+  color: var(--red-glow);
+}
+
+/* Abilities list */
+.card-abilities {
+  padding: 4px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ability-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  text-align: left;
+  transition: background var(--transition), border-color var(--transition);
+  width: 100%;
+  line-height: 1.2;
+}
+
+.ability-btn:hover:not(:disabled) {
+  background: rgba(255,42,42,0.1);
+  border-color: var(--red-dim);
+  box-shadow: 0 0 8px rgba(255,42,42,0.15);
+}
+
+.ability-btn:active:not(:disabled) {
+  background: rgba(255,42,42,0.18);
+  border-color: var(--red-glow);
+}
+
+.ability-btn:disabled {
+  color: var(--text-muted);
+  background: rgba(0,0,0,0.2);
+}
+
+.ability-btn-name {
+  font-size: 15px;
+}
+
+.ability-dice-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 1px;
+  font-family: var(--font-ui);
+}
+
+.ability-btn:hover:not(:disabled) .ability-dice-hint {
+  color: var(--text-gold);
+}
+
+/* Target selection prompt */
+.target-prompt {
+  padding: 6px 10px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--text-gold);
+  text-align: center;
+  animation: pulse-border 1s ease-in-out infinite;
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--border-radius);
+  margin: 4px 8px;
+}
+
+/* Villain card specifics */
+#character-card.villain-card {
+  border-color: var(--red-glow);
+}
+
+#character-card.villain-card .card-name {
+  color: #ff8080;
+}
+
+/* Villain actions remaining */
+.villain-actions-row {
+  padding: 4px 10px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--text-muted);
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D&D: Чужие Вещи</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/board.css">
+  <link rel="stylesheet" href="css/hud.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/modals.css">
+</head>
+<body>
+
+  <div id="game-wrapper">
+
+    <div id="board-container">
+      <div id="map-nav">
+        <button class="map-nav-btn" data-map="0">Карта 1</button>
+        <button class="map-nav-btn" data-map="1">Карта 2</button>
+        <button class="map-nav-btn" data-map="2">Карта 3</button>
+        <button class="map-nav-btn" data-map="3">Карта 4</button>
+      </div>
+      <div id="board"></div>
+    </div>
+
+    <div id="hud">
+      <div class="hud-header">
+        <h1 class="game-title">D&amp;D</h1>
+        <div id="turn-counter" class="turn-counter">Ход 1</div>
+        <div id="map-name" class="map-name"></div>
+      </div>
+
+      <div class="hud-section">
+        <div class="hud-section-title">Герои</div>
+        <div id="heroes-hp-list"></div>
+      </div>
+
+      <div class="hud-section">
+        <div class="hud-section-title">Злодей</div>
+        <div id="villain-hp-block"></div>
+      </div>
+
+      <div class="hud-section hud-log-section">
+        <div class="hud-section-title">Лог действий</div>
+        <div id="log"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Dice Input Modal -->
+  <div id="modal-overlay" class="hidden">
+    <div id="dice-modal" class="dice-modal hidden">
+      <div class="dice-modal-icon" id="dice-modal-icon"></div>
+      <div class="dice-modal-label" id="dice-modal-label"></div>
+      <div class="dice-modal-formula" id="dice-modal-formula"></div>
+      <input type="number" id="dice-input" class="dice-input" min="1" placeholder="0">
+      <div class="dice-modal-hint" id="dice-modal-hint"></div>
+      <button id="dice-confirm-btn" class="dice-confirm-btn">Подтвердить</button>
+    </div>
+  </div>
+
+  <!-- Initiative Screen -->
+  <div id="initiative-screen" class="hidden">
+    <div class="initiative-content">
+      <h2 class="initiative-title">Инициатива</h2>
+      <p class="initiative-subtitle">Бросьте d20 для каждого участника</p>
+      <div id="initiative-list"></div>
+      <button id="initiative-confirm-btn" class="initiative-confirm-btn" disabled>Начать бой</button>
+    </div>
+  </div>
+
+  <!-- Results Screen -->
+  <div id="results-screen" class="hidden">
+    <div class="results-content">
+      <div id="results-map-name" class="results-map-name"></div>
+      <div id="results-outcome" class="results-outcome"></div>
+      <div id="results-stats" class="results-stats"></div>
+      <div id="results-awards" class="results-awards"></div>
+      <button id="results-next-btn" class="results-next-btn" disabled>Следующая карта</button>
+    </div>
+  </div>
+
+  <!-- Final Screen -->
+  <div id="final-screen" class="hidden">
+    <div class="final-content">
+      <h1 class="final-title">Кампания завершена!</h1>
+      <p class="final-subtitle">Тьма побеждена. Странвилл спасён.</p>
+      <div id="final-stats"></div>
+    </div>
+  </div>
+
+  <!-- Floating character card (shown near token on right-click / active turn) -->
+  <div id="character-card" class="hidden"></div>
+
+  <!-- Debug panel -->
+  <div id="debug-panel">
+    <button id="debug-toggle" title="Отладка">⚙</button>
+    <div id="debug-content" class="hidden">
+      <div class="debug-title">Отладка</div>
+      <button id="debug-reset">Сбросить игру</button>
+      <div class="debug-row">
+        <label class="debug-label">Фон карты:</label>
+        <input type="file" id="debug-bg" accept="image/*">
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/dice.js"></script>
+  <script src="js/combat.js"></script>
+  <script src="js/initiative.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/endgame.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

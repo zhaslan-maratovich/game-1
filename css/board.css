@@ -1,0 +1,187 @@
+#board {
+  position: relative;
+  width: var(--board-w);
+  height: var(--board-h);
+  background-color: var(--bg-board);
+  background-image:
+    linear-gradient(rgba(255,42,42,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,42,42,0.08) 1px, transparent 1px);
+  background-size: 64px 64px;
+  border: 1px solid var(--red-border);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+#board::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(255,42,42,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(255,42,42,0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Tokens */
+.token {
+  position: absolute;
+  width: var(--token-size);
+  height: var(--token-size);
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  cursor: grab;
+  z-index: 10;
+  transition: transform var(--transition), border-color var(--transition);
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  background: #0a0a12;
+}
+
+.token svg,
+.token svg *,
+.token img,
+.token > div {
+  pointer-events: none;
+}
+
+.token svg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+}
+
+.token:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  z-index: 20;
+}
+
+.token.active-turn {
+  border-color: var(--red-glow);
+  border-width: 3px;
+  animation: flicker 1.5s ease-in-out infinite;
+  z-index: 15;
+}
+
+.token.selected {
+  border-color: var(--gold);
+  border-width: 3px;
+  box-shadow: 0 0 12px rgba(200, 160, 0, 0.6);
+  z-index: 20;
+}
+
+.token.knocked-out {
+  filter: grayscale(1) brightness(0.4);
+  border-color: #333;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.token.knocked-out::after {
+  content: '✕';
+  position: absolute;
+  font-size: 28px;
+  color: var(--red-glow);
+  opacity: 0.7;
+  z-index: 5;
+}
+
+.token.villain-token {
+  border-color: var(--red-dim);
+  border-width: 3px;
+}
+
+.token.villain-token.active-turn {
+  border-color: var(--orange-glow);
+  box-shadow: 0 0 16px var(--orange-glow);
+  animation: flicker 1s ease-in-out infinite;
+}
+
+.token.dragging {
+  cursor: grabbing;
+  z-index: 100;
+  opacity: 0.85;
+  transform: translate(-50%, -50%) scale(1.12);
+}
+
+/* Token label */
+.token-label {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  text-shadow: 0 0 4px #000, 0 0 8px #000;
+  pointer-events: none;
+  z-index: 11;
+}
+
+.token.knocked-out .token-label {
+  color: var(--text-muted);
+}
+
+/* Damage / Heal floats */
+.damage-float {
+  position: absolute;
+  font-family: var(--font-ui);
+  font-size: 24px;
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 50;
+  animation: damage-float 1.2s ease-out forwards;
+  text-shadow: 0 0 6px currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.damage-float.damage {
+  color: var(--red-glow);
+}
+
+.damage-float.heal {
+  color: var(--green-heal);
+}
+
+.damage-float.miss {
+  color: var(--text-muted);
+  font-size: 18px;
+}
+
+/* Flash effects on tokens */
+.token.flash-red {
+  animation: flash-red 0.5s ease-out forwards, shake 0.4s ease-out;
+}
+
+.token.flash-green {
+  animation: flash-green 0.5s ease-out forwards;
+}
+
+.token.level-up-anim {
+  animation: level-up 1s ease-in-out forwards;
+}
+
+/* Initiative order indicator */
+.token-init-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--red-dim);
+  border: 1px solid var(--red-glow);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 12;
+}
