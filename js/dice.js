@@ -24,6 +24,7 @@ function requestDiceRoll({ label, formula, bonus, diceType, min, max, hint, onCo
 
   overlay.classList.remove('hidden');
   modal.classList.remove('hidden');
+  hideCharacterCard();
 
   setTimeout(() => input.focus(), 50);
 
