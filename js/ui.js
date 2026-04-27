@@ -267,16 +267,13 @@ function showCharacterCard(charId) {
   if (isVillain) card.classList.add('villain-card');
   else card.classList.remove('villain-card');
 
-  // Close button
+  // Close button — always closes
   const closeBtn = document.createElement('button');
   closeBtn.className = 'card-close-btn';
   closeBtn.textContent = '×';
-  closeBtn.addEventListener('click', () => {
-    const isActiveTurn = gameState.initiativeOrder[gameState.currentTurnIndex] === charId
-      && gameState.phase === 'battle';
-    if (!isActiveTurn) {
-      hideCharacterCard();
-    }
+  closeBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    hideCharacterCard();
   });
   card.appendChild(closeBtn);
 
@@ -695,7 +692,7 @@ function startTurn() {
 
   if (char.isVillain) {
     char.actionsLeft = char.actionsPerRound;
-    addLog(`Ход ${char.name}.`, 'log-system');
+    addLog(`Ход ${char.name} — Игрок 2, нажмите ПКМ на токен.`, 'log-system');
 
     // Flee check
     const map = CONFIG.maps[gameState.currentMapIndex];
@@ -705,11 +702,8 @@ function startTurn() {
       setTimeout(() => villainFled(), 500);
       return;
     }
-
-    showCharacterCard(char.id);
   } else {
-    addLog(`Ход ${char.name}.`, 'log-system');
-    showCharacterCard(char.id);
+    addLog(`Ход ${char.name} — нажмите ПКМ на токен.`, 'log-system');
   }
 }
 
@@ -765,3 +759,14 @@ function endRound() {
 
   startTurn();
 }
+
+
+// Click-outside to close character card (standard popup behaviour)
+document.addEventListener('click', e => {
+  const card = document.getElementById('character-card');
+  if (!card || card.classList.contains('hidden')) return;
+  if (card.contains(e.target)) return;
+  // Don't close while waiting for a target-selection click on a highlighted token
+  if (e.target.closest('.token.selected')) return;
+  hideCharacterCard();
+});

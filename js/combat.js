@@ -474,8 +474,7 @@ function checkNextVillainAction() {
   if (living.length === 0) return;
 
   if (villain.actionsLeft > 0) {
-    // Show villain card so Player 2 can pick the next action
-    showCharacterCard(villain.id);
+    addLog(`У ${villain.name} осталось ${villain.actionsLeft} действий — нажмите ПКМ на токен.`, 'log-system');
   } else {
     hideCharacterCard();
     setTimeout(() => advanceTurn(), 300);
